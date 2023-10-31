@@ -1,21 +1,49 @@
 ﻿using ProyectoInicial.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Identity;
+using ProyectoInicial.Services;
 
 namespace Biblioteca.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly Iconsumo _consumo;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(Iconsumo consumo)
         {
-            _logger = logger;
+            _consumo = consumo;
         }
 
-        public IActionResult Index()
+        
+        [HttpPost]
+        public ActionResult Login()
         {
-            return View();
+            int i = 0;
+            return null;
+        }
+
+            [HttpGet]
+        public async Task<IActionResult> Index(string usuarioP,string clave)
+        {
+            Usuario usuarios = new Usuario();
+            Usuario usuarioCreado = await _consumo.LoginUsuario(usuarioP,clave);
+            if ((usuarios.UsuarioP != usuarioP) && (usuarios.Contrasena != clave))
+            {
+                return View("Cliente/Index");
+
+            }
+            else
+            {
+
+                ViewData["Mensaje"] = "No se pudo crear el usuario";
+                return View();
+            }
+            
+
+                
+                //return View();
+            
         }
 
         public IActionResult Privacy()

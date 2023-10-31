@@ -13,6 +13,8 @@ namespace APILibros.Data
         {
         }
         public DbSet<Libros> libros { get; set; }
+        public DbSet<Usuario> usuarios { get; set; }
+        public DbSet<Prestamo> prestamos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,8 +40,40 @@ namespace APILibros.Data
                     Cantidad = 43,
                     Precio = 7
                 });
+            modelBuilder.Entity<Usuario>().HasData(
+
+                new Usuario
+                {
+                    IdUsuario = 1,
+                    Nombre = "Daniel",
+                    Apellido = "Chaguaro",
+                    Perfil = "usuario",
+                    UsuarioP = "Daniel",
+                    Contrasena = "hola"
+                },
 
 
+                new Usuario
+                {
+                    IdUsuario = 2,
+                    Nombre = "Juan",
+                    Apellido = "Chaguaro",
+                    Perfil = "cliente",
+                    UsuarioP = "Daniel",
+                    Contrasena = "hola"
+                });
+            modelBuilder.Entity<Prestamo>().HasData(
+
+                new Prestamo
+                {
+                    IdPrestamo = 1,
+                    IdProducto = 1,
+                    Cantidad = 5,
+                    PrecioUnitario = 5,
+                    Total = 25
+
+                });
+        
 
         }
     }

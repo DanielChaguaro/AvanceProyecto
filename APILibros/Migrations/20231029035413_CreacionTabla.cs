@@ -28,6 +28,23 @@ namespace APILibros.Migrations
                     table.PrimaryKey("PK_libros", x => x.IdLibro);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "usuarios",
+                columns: table => new
+                {
+                    IdUsuario = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Apellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Perfil = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UsuarioP = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Contrasena = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_usuarios", x => x.IdUsuario);
+                });
+
             migrationBuilder.InsertData(
                 table: "libros",
                 columns: new[] { "IdLibro", "Autor", "Cantidad", "Nombre", "Precio" },
@@ -36,6 +53,15 @@ namespace APILibros.Migrations
                     { 1, "J.K.Rowling", 20, "Harry Potter", 5 },
                     { 2, "Paulo Coelho", 43, "El alquimista", 7 }
                 });
+
+            migrationBuilder.InsertData(
+                table: "usuarios",
+                columns: new[] { "IdUsuario", "Apellido", "Contrasena", "Nombre", "Perfil", "UsuarioP" },
+                values: new object[,]
+                {
+                    { 1, "Chaguaro", "hola", "Daniel", "usuario", "Daniel" },
+                    { 2, "Chaguaro", "hola", "Juan", "cliente", "Daniel" }
+                });
         }
 
         /// <inheritdoc />
@@ -43,6 +69,9 @@ namespace APILibros.Migrations
         {
             migrationBuilder.DropTable(
                 name: "libros");
+
+            migrationBuilder.DropTable(
+                name: "usuarios");
         }
     }
 }

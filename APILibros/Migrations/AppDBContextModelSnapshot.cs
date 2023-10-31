@@ -16,7 +16,7 @@ namespace APILibros.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.12")
+                .HasAnnotation("ProductVersion", "7.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -63,6 +63,59 @@ namespace APILibros.Migrations
                             Cantidad = 43,
                             Nombre = "El alquimista",
                             Precio = 7
+                        });
+                });
+
+            modelBuilder.Entity("APILibros.Models.Usuario", b =>
+                {
+                    b.Property<int>("IdUsuario")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdUsuario"));
+
+                    b.Property<string>("Apellido")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Contrasena")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Perfil")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UsuarioP")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdUsuario");
+
+                    b.ToTable("usuarios");
+
+                    b.HasData(
+                        new
+                        {
+                            IdUsuario = 1,
+                            Apellido = "Chaguaro",
+                            Contrasena = "hola",
+                            Nombre = "Daniel",
+                            Perfil = "usuario",
+                            UsuarioP = "Daniel"
+                        },
+                        new
+                        {
+                            IdUsuario = 2,
+                            Apellido = "Chaguaro",
+                            Contrasena = "hola",
+                            Nombre = "Juan",
+                            Perfil = "cliente",
+                            UsuarioP = "Daniel"
                         });
                 });
 #pragma warning restore 612, 618

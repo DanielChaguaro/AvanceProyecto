@@ -75,6 +75,68 @@ namespace ProyectoInicial.Services
             Libros libroCreado = JsonConvert.DeserializeObject<Libros>(jsonResponse);
             return libroCreado;
         }
+
+        public async Task<List<Usuario>> GetUsuarios()
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(_baseUrl);
+            var response = await httpClient.GetAsync("api/Usuario/");
+            var json_response = await response.Content.ReadAsStringAsync();
+            List<Usuario> listaUsuarios = JsonConvert.DeserializeObject<List<Usuario>>(json_response);
+            return listaUsuarios;
+        }
+
+        public async Task<Usuario> GetUsuario(int IdUsuario)
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(_baseUrl);
+            var response = await httpClient.GetAsync($"api/Usuario/{IdUsuario}");
+            var json_response = await response.Content.ReadAsStringAsync();
+            Usuario usuario = JsonConvert.DeserializeObject<Usuario>(json_response);
+            return usuario;
+        }
+
+        public async Task<Usuario> PostUsuario(Usuario usuario)
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(_baseUrl);
+            var json = JsonConvert.SerializeObject(usuario);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync("api/Usuario", content);
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            Usuario usuarioCreado = JsonConvert.DeserializeObject<Usuario>(jsonResponse);
+            return usuarioCreado;
+        }
+
+        public async Task<Usuario> PutUsuario(int IdUsuario, Usuario usuario)
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(_baseUrl);
+            var json = JsonConvert.SerializeObject(usuario);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await httpClient.PutAsync($"api/Usuario/{IdUsuario}", content);
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            Usuario editarUsuario = JsonConvert.DeserializeObject<Usuario>(jsonResponse);
+            return editarUsuario;
+        }
+
+        public async Task<string> DeleteUsuario(int IdUsuario)
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(_baseUrl);
+            var response = await httpClient.DeleteAsync($"api/Usuario/{IdUsuario}");
+            return "Producto eliminado correctamente";
+        }
+
+        public async Task<Usuario> LoginUsuario(string UsuarioP, string Contrasena)
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(_baseUrl);
+            var response = await httpClient.GetAsync($"api/Usuario/{UsuarioP}&{Contrasena}");
+            var json_response = await response.Content.ReadAsStringAsync();
+            Usuario usuario = JsonConvert.DeserializeObject<Usuario>(json_response);
+            return usuario;
+        }
     }
 }
 
