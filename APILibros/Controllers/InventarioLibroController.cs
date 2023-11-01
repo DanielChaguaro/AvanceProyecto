@@ -57,7 +57,7 @@ namespace APILibros.Controllers
         }
 
 
-        [HttpPut("{IdLibros}")]
+        [HttpPut("{IdLibro}")]
         public async Task<IActionResult> Put(int IdLibro, [FromBody] Libros libro)
         {
             Libros libro2 = await _db.libros.FirstOrDefaultAsync(x => x.IdLibro == IdLibro);

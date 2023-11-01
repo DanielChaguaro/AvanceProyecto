@@ -29,6 +29,22 @@ namespace APILibros.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "prestamos",
+                columns: table => new
+                {
+                    IdPrestamo = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdProducto = table.Column<int>(type: "int", nullable: false),
+                    Cantidad = table.Column<int>(type: "int", nullable: false),
+                    PrecioUnitario = table.Column<int>(type: "int", nullable: false),
+                    Total = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_prestamos", x => x.IdPrestamo);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "usuarios",
                 columns: table => new
                 {
@@ -55,6 +71,15 @@ namespace APILibros.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "prestamos",
+                columns: new[] { "IdPrestamo", "Cantidad", "IdProducto", "PrecioUnitario", "Total" },
+                values: new object[,]
+                {
+                    { 1, 5, 1, 5, 25 },
+                    { 2, 3, 1, 5, 15 }
+                });
+
+            migrationBuilder.InsertData(
                 table: "usuarios",
                 columns: new[] { "IdUsuario", "Apellido", "Contrasena", "Nombre", "Perfil", "UsuarioP" },
                 values: new object[,]
@@ -69,6 +94,9 @@ namespace APILibros.Migrations
         {
             migrationBuilder.DropTable(
                 name: "libros");
+
+            migrationBuilder.DropTable(
+                name: "prestamos");
 
             migrationBuilder.DropTable(
                 name: "usuarios");

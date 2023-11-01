@@ -12,6 +12,7 @@ namespace APILibros.Data
             DbContextOptions<AppDBContext> options) : base(options)
         {
         }
+
         public DbSet<Libros> libros { get; set; }
         public DbSet<Usuario> usuarios { get; set; }
         public DbSet<Prestamo> prestamos { get; set; }
@@ -72,9 +73,17 @@ namespace APILibros.Data
                     PrecioUnitario = 5,
                     Total = 25
 
+                },
+                new Prestamo
+                {
+                    IdPrestamo = 2,
+                    IdProducto = 1,
+                    Cantidad = 3,
+                    PrecioUnitario = 5,
+                    Total = 15
+
                 });
-        
 
         }
+        }
     }
-}

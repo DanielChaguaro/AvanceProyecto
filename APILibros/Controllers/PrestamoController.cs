@@ -3,16 +3,13 @@ using APILibros.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-/*
+
 namespace APILibros.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class PrestamoController : Controller
     {
-        [Route("api/[controller]")]
-        [ApiController]
-        public class PrestamoController : Controller
-        {
-
             private readonly AppDBContext _db;
 
             public PrestamoController(AppDBContext db)
@@ -56,38 +53,38 @@ namespace APILibros.Controllers
 
             }
 
-            /*
+            
             [HttpPut("{IdPrestamo}")]
             public async Task<IActionResult> Put(int IdPrestamo, [FromBody] Prestamo prestamo)
             {
-                Prestamo prestamo2 = await _db.prestamos.FirstOrDefaultAsync(x => x.IdPrestamo == prestamo.IdPrestamo);
+                Prestamo prestamo2 = await _db.prestamos.FirstOrDefaultAsync(x => x.IdPrestamo == IdPrestamo);
                 if (prestamo2 != null)
                 {
                     prestamo2.IdProducto = prestamo.IdProducto != null ? prestamo.IdProducto : prestamo2.IdProducto;
                     prestamo2.Cantidad = prestamo.Cantidad != null ? prestamo.Cantidad : prestamo2.Cantidad;
-                    prestamo2.Cantidad = prestamo.Cantidad != null ? prestamo.Cantidad : prestamo2.Cantidad;
-                    libro2.Precio = libro.Precio != null ? libro.Precio : libro2.Precio;
-                    _db.libros.Update(libro2);
+                    prestamo2.PrecioUnitario = prestamo.PrecioUnitario != null ? prestamo.PrecioUnitario : prestamo2.PrecioUnitario;
+                    prestamo2.Total = prestamo.Total != null ? prestamo.Total : prestamo.Total;
+                    _db.prestamos.Update(prestamo2);
                     await _db.SaveChangesAsync();
-                    return Ok(libro2);
+                    return Ok(prestamo2);
                 }
                 return BadRequest();
 
             }
 
             // DELETE api/<ProductoController>/5
-            [HttpDelete("{IdLibro}")]
-            public async Task<IActionResult> Delete(int IdLibro)
+            [HttpDelete("{IdPrestamo}")]
+            public async Task<IActionResult> Delete(int IdPrestamo)
             {
-                Libros libro = await _db.libros.FirstOrDefaultAsync(x => x.IdLibro == IdLibro);
-                if (libro != null)
+                Prestamo prestamo = await _db.prestamos.FirstOrDefaultAsync(x => x.IdPrestamo == IdPrestamo);
+                if (prestamo != null)
                 {
-                    _db.libros.Remove(libro);
+                    _db.prestamos.Remove(prestamo);
                     await _db.SaveChangesAsync();
                     return NoContent();
                 }
                 return BadRequest("No se pudo borrar el producto");
             }
-        }
+        
     }
-}*/
+}

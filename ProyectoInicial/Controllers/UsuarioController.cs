@@ -43,21 +43,21 @@ namespace ProyectoInicial.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Usuario usuario)
         {
-            
-            Usuario usuarioCreado = await _consumo.PostUsuario(usuario);
-            if (usuarioCreado.UsuarioP != usuario.UsuarioP )
+            List<Usuario> usuarios=await _consumo.GetUsuarios();
+            bool credencialesValidas = usuarios.Any(u => u.UsuarioP == usuario.UsuarioP );
+
+            if (credencialesValidas)
             {
-                return RedirectToAction("Index");
-            }
-            
-                ViewData["Mensaje"] = "No se pudo crear el usuario";
+                //ViewData["Mensaje"] = "No se pudo crear el usuario";
                 return View();
-            
+            }
+            else
+            {
+                Usuario usuarioCreado = await _consumo.PostUsuario(usuario);
+                return RedirectToAction("Index");
+
+            }
         }
-
-
-
-        // GET: ProductoController/Edit/5
         public async Task<IActionResult> Edit(int IdUsuario)
         {
 
@@ -87,7 +87,7 @@ namespace ProyectoInicial.Controllers
 
 
         [HttpGet]
-        // GET: ProductoController/Delete/5
+
         public async Task<IActionResult> Delete(int IdUsuario)
         {
 

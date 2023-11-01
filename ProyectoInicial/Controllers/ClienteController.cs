@@ -1,23 +1,47 @@
 ﻿using Biblioteca.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProyectoInicial.Models;
+using ProyectoInicial.Services;
+using System.Reflection;
 
 namespace ProyectoInicial.Controllers
 {
     public class ClienteController : Controller
     {
-        private readonly ILogger<ClienteController> _logger;
+        private readonly Iconsumo _consumo;
 
-        public ClienteController(ILogger<ClienteController> logger)
+        public ClienteController(Iconsumo consumo)
         {
-            _logger = logger;
+            _consumo = consumo;
         }
-        // GET: LoginController
-        public ActionResult Index()
+       
+
+        [HttpPost]
+        public async Task<IActionResult> Index(string usuarioP, string clave)
         {
+            List<Usuario> usuario = await _consumo.GetUsuarios();
+            bool credencialesValidas = usuario.Any(u => u.UsuarioP == usuarioP && u.Contrasena == clave);
+
+            if (credencialesValidas)
+            {
+                return View();
+
+            }
+            else
+            {
+                
+                return RedirectToAction("Index", "Home");
+            }
+
+        }
+        
+        public async Task<IActionResult> Index()
+        {
+
             return View();
-        }
 
+        }
         // GET: LoginController/Details/5
         public ActionResult Details(int id)
         {

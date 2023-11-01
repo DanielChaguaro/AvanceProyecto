@@ -81,17 +81,7 @@ namespace APILibros.Controllers
             }
             return BadRequest("No se pudo borrar el producto");
         }
-        [HttpGet("{UsuarioP}&{Contrasena}")]
-        public async Task<IActionResult> GetUsuario(string UsuarioP, string Contrasena)
-        {
-            Usuario usuario = await _db.usuarios.Where(x => x.UsuarioP == UsuarioP && x.Contrasena == Contrasena).FirstOrDefaultAsync();
-            if (usuario != null)
-            {
-                return Ok(usuario);
-            }
-            return BadRequest();
-
-        }
+        
 
     }
 }

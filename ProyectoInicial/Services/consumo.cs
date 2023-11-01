@@ -128,14 +128,58 @@ namespace ProyectoInicial.Services
             return "Producto eliminado correctamente";
         }
 
-        public async Task<Usuario> LoginUsuario(string UsuarioP, string Contrasena)
+        
+
+        public async Task<List<Prestamo>> GetPrestamos()
         {
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(_baseUrl);
-            var response = await httpClient.GetAsync($"api/Usuario/{UsuarioP}&{Contrasena}");
+            var response = await httpClient.GetAsync("api/Prestamo/");
             var json_response = await response.Content.ReadAsStringAsync();
-            Usuario usuario = JsonConvert.DeserializeObject<Usuario>(json_response);
-            return usuario;
+            List<Prestamo> listaprestamo = JsonConvert.DeserializeObject<List<Prestamo>>(json_response);
+            return listaprestamo;
+        }
+
+        public async Task<Prestamo> GetPrestamo(int IdPrestamo)
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(_baseUrl);
+            var response = await httpClient.GetAsync($"api/Prestamo/{IdPrestamo}");
+            var json_response = await response.Content.ReadAsStringAsync();
+            Prestamo prestamo = JsonConvert.DeserializeObject<Prestamo>(json_response);
+            return prestamo;
+        }
+
+        public async Task<Prestamo> PostPrestamo(Prestamo prestamo)
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(_baseUrl);
+            var json = JsonConvert.SerializeObject(prestamo);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync("api/Prestamo", content);
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            Prestamo prestamoCreado = JsonConvert.DeserializeObject<Prestamo>(jsonResponse);
+            return prestamoCreado;
+        }
+
+        public async Task<Prestamo> PutPrestamo(int IdPrestamo, Prestamo prestamo)
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(_baseUrl);
+            var json = JsonConvert.SerializeObject(prestamo);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await httpClient.PutAsync($"api/Prestamo/{IdPrestamo}", content);
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            Prestamo prestamoEdit = JsonConvert.DeserializeObject<Prestamo>(jsonResponse);
+            return prestamoEdit;
+        }
+
+        public async Task<string> DeletePrestamo(int IdPrestamo)
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(_baseUrl);
+            var response = await httpClient.DeleteAsync($"api/Prestamo/{IdPrestamo}");
+            return "Producto eliminado correctamente";
         }
     }
 }

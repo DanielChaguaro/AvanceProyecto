@@ -66,6 +66,49 @@ namespace APILibros.Migrations
                         });
                 });
 
+            modelBuilder.Entity("APILibros.Models.Prestamo", b =>
+                {
+                    b.Property<int>("IdPrestamo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPrestamo"));
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdProducto")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PrecioUnitario")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Total")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdPrestamo");
+
+                    b.ToTable("prestamos");
+
+                    b.HasData(
+                        new
+                        {
+                            IdPrestamo = 1,
+                            Cantidad = 5,
+                            IdProducto = 1,
+                            PrecioUnitario = 5,
+                            Total = 25
+                        },
+                        new
+                        {
+                            IdPrestamo = 2,
+                            Cantidad = 3,
+                            IdProducto = 1,
+                            PrecioUnitario = 5,
+                            Total = 15
+                        });
+                });
+
             modelBuilder.Entity("APILibros.Models.Usuario", b =>
                 {
                     b.Property<int>("IdUsuario")

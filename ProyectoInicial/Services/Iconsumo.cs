@@ -15,7 +15,12 @@ namespace ProyectoInicial.Services
         Task<Usuario> PostUsuario(Usuario usuario);
         Task<Usuario> PutUsuario(int IdUsuario, Usuario usuario);
         Task<string> DeleteUsuario(int IdUsuario);
-        Task<Usuario> LoginUsuario(string UsuarioP, string Contrasena);
+        
+        Task<List<Prestamo>> GetPrestamos();
+        Task<Prestamo> GetPrestamo(int IdPrestamo);
+        Task<Prestamo> PostPrestamo(Prestamo prestamo);
+        Task<Prestamo> PutPrestamo(int IdPrestamo, Prestamo prestamo);
+        Task<string> DeletePrestamo(int IdPrestamo);
     }
 }
 

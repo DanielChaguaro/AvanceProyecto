@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APILibros.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20231029035413_CreacionTabla")]
+    [Migration("20231101015351_CreacionTabla")]
     partial class CreacionTabla
     {
         /// <inheritdoc />
@@ -66,6 +66,49 @@ namespace APILibros.Migrations
                             Cantidad = 43,
                             Nombre = "El alquimista",
                             Precio = 7
+                        });
+                });
+
+            modelBuilder.Entity("APILibros.Models.Prestamo", b =>
+                {
+                    b.Property<int>("IdPrestamo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdPrestamo"));
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdProducto")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PrecioUnitario")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Total")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdPrestamo");
+
+                    b.ToTable("prestamos");
+
+                    b.HasData(
+                        new
+                        {
+                            IdPrestamo = 1,
+                            Cantidad = 5,
+                            IdProducto = 1,
+                            PrecioUnitario = 5,
+                            Total = 25
+                        },
+                        new
+                        {
+                            IdPrestamo = 2,
+                            Cantidad = 3,
+                            IdProducto = 1,
+                            PrecioUnitario = 5,
+                            Total = 15
                         });
                 });
 
