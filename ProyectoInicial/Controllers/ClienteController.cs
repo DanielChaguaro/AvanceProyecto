@@ -20,17 +20,27 @@ namespace ProyectoInicial.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(string usuarioP, string clave)
         {
+            
             List<Usuario> usuario = await _consumo.GetUsuarios();
+            Usuario user = usuario.FirstOrDefault(u => u.UsuarioP == usuarioP && u.Contrasena == clave);
             bool credencialesValidas = usuario.Any(u => u.UsuarioP == usuarioP && u.Contrasena == clave);
 
             if (credencialesValidas)
             {
-                return View();
-
+                if (user.Perfil == "cliente")
+                {
+                    // Usuario es un cliente, mostrar la vista correspondiente
+                    return View();
+                }
+                else
+                {
+                    // Usuario es un administrador, redirigir a la acción "Create" en "LibrosController"
+                    return RedirectToAction("Index", "InventarioLibros");
+                }
             }
             else
             {
-                
+               
                 return RedirectToAction("Index", "Home");
             }
 

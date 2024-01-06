@@ -3,13 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using ProyectoInicial.Services;
+using ProyectoInicial.ViewModel;
 
 namespace Biblioteca.Controllers
 {
     public class HomeController : Controller
     {
         private readonly Iconsumo _consumo;
-
+        
         public HomeController(Iconsumo consumo)
         {
             _consumo = consumo;

@@ -2,25 +2,38 @@
 using Microsoft.AspNetCore.Mvc;
 using ProyectoInicial.Models;
 using ProyectoInicial.Services;
+using ProyectoInicial.ViewModel;
 
 namespace ProyectoInicial.Controllers
 {
     public class PrestamoController : Controller
     {
         private readonly Iconsumo _consumo;
-
+        private readonly PrestamoViewModel _prestamoViewModel;
         public PrestamoController(Iconsumo consumo)
         {
             _consumo = consumo;
+            _prestamoViewModel=new PrestamoViewModel();
         }
-
-
         public async Task<IActionResult> Index()
         {
+
             List<Prestamo> prestamo = await _consumo.GetPrestamos();
+            
             return View(prestamo);
         }
-
+        /*
+        [HttpPost]
+        public async Task<IActionResult> Index(int IdUsuario)
+        {
+            
+            List<Prestamo> prestamo = await _consumo.GetPrestamos();
+            Usuario usuario = await _consumo.GetUsuario(IdUsuario);
+            _prestamoViewModel.ListaPrestamos=prestamo;
+            _prestamoViewModel.Usuario = usuario;
+            return View(_prestamoViewModel);
+        }*/
+      
         public async Task<IActionResult> Details(int IdPrestamo)
         {
             Prestamo DetallePrestamo = new Prestamo();

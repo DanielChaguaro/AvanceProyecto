@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "LoginView";
     Layout = null;
-    
+
 }
 
 <!DOCTYPE html>
@@ -9,15 +9,15 @@
 <head>
     <meta charset="utf-8" />
     <! meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
     <! link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <! link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <! link rel="stylesheet" href="~/ProyectoInicial.styles.css" asp-append-version="true" />
     <title>Iniciar Sesión</title>
 
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 
-<!------ Include the above in your HEAD tag ---------->
+    <!------ Include the above in your HEAD tag ---------->
 </head>
 <body>
     <div id="login">
@@ -36,7 +36,12 @@
                                 <label for="clave" class="text-info">Password:</label><br>
                                 <input type="text" name="clave" placeholder="Contrasena" class="form-control" value="">
                             </div>
-                            
+                            @if (ViewData["Mensaje"] != null)
+                            {
+                                <div class="alert alert-danger" role="alert">
+                                    @ViewData["Mensaje"]
+                                </div>
+                            }
                             <div class="form-group">
                                 
                                 <input type="submit" name="submit" class="btn btn-info btn-md" value="Ingresar">
@@ -44,6 +49,7 @@
                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                     
                                 </div>
+                                
                             
                         </form>
                     </div>
